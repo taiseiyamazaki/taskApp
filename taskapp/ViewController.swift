@@ -36,8 +36,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     //検索ボタン押下時の呼び出しメソッド
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         SearchBar.endEditing(true)
+        if (searchBar.text == " "){
+            tabelView.reloadData()
+        }else{
+        
+            
         
         print(searchText)
         
@@ -45,7 +49,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         taskArray = realm.objects(Task.self).filter(predicate)
         tabelView.reloadData()
         
-    
+        }
     }
 
 
