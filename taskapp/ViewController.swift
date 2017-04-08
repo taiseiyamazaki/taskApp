@@ -36,8 +36,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     //検索ボタン押下時の呼び出しメソッド
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        SearchBar.endEditing(true)
-        if (searchBar.text == " "){
+        if (searchBar.text == ""){
+            taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
             tabelView.reloadData()
         }else{
         
@@ -46,7 +46,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         print(searchText)
         
-        let predicate = NSPredicate(format: "category = %@", searchText)
+        let predicate = NSPredicate(format: "category CONTAINS[c] %@", searchText)
         taskArray = realm.objects(Task.self).filter(predicate)
         tabelView.reloadData()
         
